@@ -6,10 +6,14 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var item = require('./routes/item');
 var http = require('http');
 var path = require('path');
+var mongo = require('mongodb');
+var monk = require('monk'); 
 
 var app = express();
+var db = monk('localhost:27017/items'); 
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -31,7 +35,13 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+// app.get('/users', user.list);
+app.get('/itemlist', routes.itemlist(db)); 
+app.get('/newitem', routes.newitem);
+app.post('/additem', routes.additem(db));
+// app.post('/wantitem', routes.wantitem);
+// need to be able to delete an item  
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
