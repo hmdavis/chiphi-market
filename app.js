@@ -11,9 +11,17 @@ var http = require('http');
 var path = require('path');
 var mongo = require('mongodb');
 var monk = require('monk'); 
+var nodemailer = require('nodemailer'); 
 
 var app = express();
 var db = monk('localhost:27017/items'); 
+var smtp = nodemailer.createTransport("SMTP", { 
+	service: "Gmail", 
+	auth: { 
+		user: "", 
+		pass: ""
+	}
+});
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -34,13 +42,16 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-// app.get('/users', user.list);
+// app.get('/', routes.index);
+app.get('/', routes.itemlist(db));
 app.get('/itemlist', routes.itemlist(db)); 
 app.get('/newitem', routes.newitem);
 app.post('/additem', routes.additem(db));
-// app.post('/wantitem', routes.wantitem);
-// need to be able to delete an item  
+app.post('/wantitem', routes.wantitem(db));
+app.post('/notifyseller', routes.notifyseller(db, smtp));
+// app.get('/users', user.list);
+// app.post('/search', routes.search(db));
+// need to be able to delete an item  -- clear after certain number of days? 
 
 
 http.createServer(app).listen(app.get('port'), function(){

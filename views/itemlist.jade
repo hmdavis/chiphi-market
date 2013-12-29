@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1 #{title}
+  form#formPostItem(name='postitem', method='get', action='/newitem')
+    button#buttonPostItem(type='submit') Post Item
   ul
     each item, index in itemlist
       li= index + ': ' + item.title
