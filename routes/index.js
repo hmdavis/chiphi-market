@@ -7,7 +7,6 @@ exports.index = function(req, res){
   res.render('index', { title: 'Express' });
 };
 
-
 // return all items 
 exports.itemlist = function(db) { 
   return function(req,res) { 
@@ -44,6 +43,7 @@ exports.additem = function(db) {
 			"price":itemPrice, 
 			"negotiable":isNegotiable,
 			"description":itemDescription,
+			"created_at": new Date(), 
 			"num_wants":0
 		}, function(err,doc) { 
 			if (err) res.send(err); 
@@ -54,3 +54,22 @@ exports.additem = function(db) {
 		});
 	};
 };
+
+exports.wantitem = function(db) {
+	return function(req,res) { 
+	var itemId = req.body.id; 
+	var itemTitle = req.body.title; 
+	var render_me = {title: 'Want ' + itemTitle};
+	res.render('wantitem', render_me);
+	};
+};
+
+// email the seller about who wants to buy, their number, return address, any special message 
+// incremement the number of wants an item has (can display on the homepage)
+exports.notifyseller = function(db) {
+	return function(req,res) { 
+		console.log("TODO"); 
+		res.location('itemlist');
+		res.redirect('itemlist');
+	}; 
+}; 

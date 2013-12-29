@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  form#formAddItem(name="wantitem", method="post", action="/notifyseller")
+    input#inputName(type="text", placeholder="username", name="username")
+    input#inputEmail(type="email", placeholder="email address", name="email")
+    input#inputPhone(type="tel", placeholder="xxx-xxx-xxxx", name="phone")
+    button#btnSubmit(type="submit") submit

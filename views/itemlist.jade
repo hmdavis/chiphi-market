@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= "ItemList"
-  p Welcome to #{title}
+  h1 #{title}
+  ul
+    each item, index in itemlist
+      li= index + ': ' + item.title
+      form#formWantItem(name='wantitem', method='post', action='/wantitem')
+        input#inputId(type='hidden', name='id', value=item._id)
+        input#inputTitle(type='hidden', name='title', value=item.title)
+        button#Want(type='submit') Want
