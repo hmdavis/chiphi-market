@@ -4,10 +4,21 @@ block content
   h1 #{title}
   form#formPostItem(name='postitem', method='get', action='/newitem')
     button#buttonPostItem(type='submit') Post Item
-  ul
+    hr
     each item, index in itemlist
-      li= index + ': ' + item.title
+      div
+        p
+          b #{item.title} </br> 
+          b Price:
+          | &nbsp#{item.price} </br>
+          b Negotiable: 
+          | &nbsp#{item.negotiable} </br>
+          b Wants:
+          | &nbsp#{item.num_wants} </br>
+          b Description: 
+          | &nbsp#{item.description}
       form#formWantItem(name='wantitem', method='post', action='/wantitem')
         input#inputId(type='hidden', name='id', value=item._id)
         input#inputTitle(type='hidden', name='title', value=item.title)
         button#Want(type='submit') Want
+      hr
