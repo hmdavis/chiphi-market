@@ -18,8 +18,9 @@ var db = monk('localhost:27017/items');
 var smtp = nodemailer.createTransport("SMTP", { 
 	service: "Gmail", 
 	auth: { 
-		user: "", 
-		pass: ""
+		// HIDE ME 
+		user: "chiphimarket@gmail.com", 
+		pass: "chiphixi"
 	}
 });
 

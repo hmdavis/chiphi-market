@@ -6,7 +6,7 @@ exports.index = function(req, res){
   res.render('index', { title: 'Express' });
 };
 
-// return all items 
+// return all items and renders to page 
 exports.itemlist = function(db) { 
   return function(req,res) { 
     var collection = db.get('itemcollection'); 
@@ -31,9 +31,8 @@ exports.additem = function(db) {
 		var itemPrice = req.body.price; 
 		var isNegotiable = req.body.negotiable; 
 		var itemDescription = req.body.description; 
-
+		// add item to the items collection in database 
 		var collection = db.get('itemcollection'); 
-
 		collection.insert({
 			"username":userName, 
 			"email":userEmail, 
@@ -72,7 +71,7 @@ exports.notifyseller = function(db, smtp) {
 		var buyerName = req.body.username; 
 		var buyerNumber = req.body.phone;
 		var buyerEmail = req.body.email;
-
+		// query database to identify and notify seller 
 		var collection = db.get('itemcollection');
 		var query = {_id:itemId}; 
 		var fields = {email:true, username:true, _id:false}; 
@@ -81,6 +80,7 @@ exports.notifyseller = function(db, smtp) {
 				console.log("error finding item"); 
 				res.send(err); 
 			} else { 
+				// package email to send to seller 
 				var sellerEmail = doc.email; 
 				var sellerName = doc.username; 
 				var messageBody = "Hi " + sellerName + ",\n\nI'm interested in purchasing your item: " + itemTitle + ". To further discuss this, you can contact me at: \nEmail:\t" + buyerEmail + "\nPhone:\t" + buyerNumber +"\n\nThanks,\n" + buyerName; 
@@ -90,6 +90,7 @@ exports.notifyseller = function(db, smtp) {
 					subject: "Interested in " + itemTitle, 
 					text: messageBody
 				}; 
+				// send notification email to seller 
 				smtp.sendMail(mailOptions, function(err, res) { 
 					if(err) { 
 						console.log("error sending email"); 
@@ -98,9 +99,11 @@ exports.notifyseller = function(db, smtp) {
 						console.log("Message sent: " + res.message); 
 					}
 				});
+				// increment the num_wants field in item 
+				var updates = {$inc: {num_wants: +1}};
+				collection.update(query, updates);
 			}
 		}); 
-
 		// TODO: notify successful email? 
 		res.location('itemlist');
 		res.redirect('itemlist');
