@@ -19,8 +19,8 @@ var smtp = nodemailer.createTransport("SMTP", {
 	service: "Gmail", 
 	auth: { 
 		// HIDE ME 
-		user: "chiphimarket@gmail.com", 
-		pass: "chiphixi"
+		user: "", 
+		pass: ""
 	}
 });
 
