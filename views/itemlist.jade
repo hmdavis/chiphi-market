@@ -9,19 +9,23 @@ block content
         button#buttonPostItem(type='submit', class='btn btn-primary btn-lg') Post Item
   div(class="container")
     div(class="row")
-      each item, index in itemlist
-        div(class="col-md-4")
-          h2 #{item.title} 
-          p
-            b Price:
-            | &nbsp#{item.price} </br>
-            b Negotiable: 
-            | &nbsp#{item.negotiable} </br>
-            b Wants:
-            | &nbsp#{item.num_wants} </br>
-            b Description: 
-            | &nbsp#{item.description}
-          form#formWantItem(name='wantitem', method='post', action='/wantitem')
-            input#inputId(type='hidden', name='id', value=item._id)
-            input#inputTitle(type='hidden', name='title', value=item.title)
-            button#Want(type='submit', class='btn btn-primary') Want
+      if itemlist.length
+        each item, index in itemlist
+          div(class="col-md-4")
+            h2 #{item.title} 
+            p
+              b Price:
+              | &nbsp#{item.price} </br>
+              b Negotiable: 
+              | &nbsp#{item.negotiable} </br>
+              b Wants:
+              | &nbsp#{item.num_wants} </br>
+              b Description: 
+              | &nbsp#{item.description}
+            form#formWantItem(name='wantitem', method='post', action='/wantitem')
+              input#inputId(type='hidden', name='id', value=item._id)
+              input#inputTitle(type='hidden', name='title', value=item.title)
+              button#Want(type='submit', class='btn btn-primary') Want
+      else
+        div(class="container")
+          h3 No items yet...
