@@ -12,9 +12,12 @@ var path = require('path');
 var mongo = require('mongodb');
 var monk = require('monk'); 
 var nodemailer = require('nodemailer'); 
-
 var app = express();
-var db = monk('localhost:27017/items'); 
+
+var mongoUri = process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'localhost:27017/items';
+var db = monk(mongoUri); 
 var smtp = nodemailer.createTransport("SMTP", { 
 	service: "Gmail", 
 	auth: { 
