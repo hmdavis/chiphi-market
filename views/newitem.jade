@@ -1,13 +1,31 @@
 extends layout
 
 block content
-  h1= title
-  form#formAddItem(name="additem", method="post", action="/additem")
-    input#inputName(type="text", placeholder="username", name="username")
-    input#inputEmail(type="email", placeholder="email address", name="email")
-    input#inputPhone(type="tel", placeholder="xxx-xxx-xxxx", name="phone")
-    input#inputTitle(type="text", placeholder="item name", name="title")
-    input#inputPrice(type="text", placeholder="asking price", name="price")
-    input#inputNegotiable(type="text", placeholder="negotiable?", name="negotiable")
-    textarea#textDescription(name="description", rows=20, placeholder="proudct description")
-    button#btnSubmit(type="submit") submit
+  br
+  br
+  div(class="container")
+    h1= title
+    form(name="additem", method="post", action="/additem")
+      div(class="form-group")
+        label(for="username") Username
+        input(type="text", class="form-control", placeholder="Enter name", name="username" required)
+      div(class="form-group")
+        label(for="email") Email 
+        input(type="email", class="form-control", placeholder="ex: iota@chiphi.com", name="email" required)
+      div(class="form-group")
+        label(for="phone") Cell
+        input(type="tel", class="form-control", placeholder="ex: xxx-xxx-xxxx", name="phone" required)
+      div(class="form-group")
+        label(for="title") Item Name
+        input(type="text", class="form-control", placeholder="Enter item name", name="title" required)
+      div(class="form-group")
+        label(for="price") Asking Price
+        input(type="text", class="form-control", placeholder="ex: $2.50", name="price" required)
+      div(class="form-group")
+        label(for="negotiable") Price Negotiable?
+        input(type="text", class="form-control", placeholder="Yes/No", name="negotiable" required)
+      div(class="form-group")
+        label(for="description") Description
+        textarea(name="description", class="form-control", rows=10, placeholder="Enter description" required)
+      div(class="form-group")
+        button(type="submit", class="btn btn-primary") Submit

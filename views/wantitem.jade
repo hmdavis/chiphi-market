@@ -1,11 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  form#formAddItem(name="wantitem", method="post", action="/notifyseller")
-    input#inputName(type="text", placeholder="username", name="username")
-    input#inputEmail(type="email", placeholder="email address", name="email")
-    input#inputPhone(type="tel", placeholder="xxx-xxx-xxxx", name="phone")
-    input#inputItemId(type="hidden", name="id", value=itemId)
-    input#inputItemId(type="hidden", name="title", value=itemTitle)
-    button#btnSubmit(type="submit") submit
+  br
+  br
+  div(class="container")
+    h1= title
+    form(name="wantitem", method="post", action="/notifyseller")
+      div(class="form-group")
+        label Username
+        input(type="text", class="form-control", placeholder="Enter name", name="username" required)
+      div(class="form-group")
+        label Email
+        input(type="email", class="form-control", placeholder="ex: iota@chiphi.com", name="email" required)
+      div(class="form-group")
+        label Cell
+        input(type="tel", class="form-control", placeholder="ex: xxx-xxx-xxxx", name="phone" required)
+      div(class="form-group")
+        input(type="hidden", class="form-control", name="id", value=itemId required)
+      div(class="form-group")
+        input(type="hidden", class="form-control", name="title", value=itemTitle required)
+      div(class="form-group")
+        button(type="submit", class="btn btn-primary") Submit
