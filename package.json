@@ -13,5 +13,8 @@
 		"mongoose": "*",
     "stylus": "*",
     "nodemailer": "*"
+  },
+  "engines": { 
+    "node": "0.10.x"
   }
 }
