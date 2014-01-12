@@ -4,25 +4,23 @@
  */
 
 var express = require('express');
+var db = require('./models/db'); 
 var routes = require('./routes');
 var user = require('./routes/user');
 var item = require('./routes/item');
 var http = require('http');
 var path = require('path');
 var mongo = require('mongodb');
-var monk = require('monk'); 
+var mongoose = require('mongoose'); 
 var nodemailer = require('nodemailer'); 
+// var db = require('./models/db'); 
 var app = express();
 
-var mongoUri = process.env.MONGOLAB_URI ||
-  process.env.MONGOHQ_URL ||
-  'localhost:27017/items';
-var db = monk(mongoUri); 
 var smtp = nodemailer.createTransport("SMTP", { 
 	service: "Gmail", 
 	auth: { 
 		// HIDE ME 
-		user: "", 
+		user: "",
 		pass: ""
 	}
 });
@@ -47,12 +45,12 @@ if ('development' == app.get('env')) {
 }
 
 // app.get('/', routes.index);
-app.get('/', routes.itemlist(db));
-app.get('/itemlist', routes.itemlist(db)); 
+app.get('/', routes.itemlist);
+app.get('/itemlist', routes.itemlist); 
 app.get('/newitem', routes.newitem);
-app.post('/additem', routes.additem(db));
-app.post('/wantitem', routes.wantitem(db));
-app.post('/notifyseller', routes.notifyseller(db, smtp));
+app.post('/additem', routes.additem);
+app.post('/wantitem', routes.wantitem);
+app.post('/notifyseller', routes.notifyseller(smtp));
 // app.get('/users', user.list);
 // app.post('/search', routes.search(db));
 // need to be able to delete an item  -- clear after certain number of days? 
