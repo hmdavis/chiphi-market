@@ -1,10 +1,11 @@
 chiphi-market
 =============
+simple marketplace to list items for sale:
+http://chiphi-market.herokuapp.com/
 
-simple marketplace to list items for sale
-
-Run mongo server: `mongod --dbpath ./data`
-Run mongo toplevel: `mongo`
+### Run from local directory:
+* Start mongo server: `mongod --dbpath ./data`
+* Start web app: `node app.js`
 
 ### If I'm looking for more things to do:
 * Implement basic search 
