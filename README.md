@@ -1,6 +1,6 @@
 chiphi-market
 =============
-simple marketplace to list items for sale:
+bare bones marketplace to list items for sale:
 http://chiphi-market.herokuapp.com/
 
 ### Run from local directory:
